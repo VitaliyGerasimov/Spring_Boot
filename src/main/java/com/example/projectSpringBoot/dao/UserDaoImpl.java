@@ -3,7 +3,6 @@ package com.example.projectSpringBoot.dao;
 import com.example.projectSpringBoot.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,25 +16,21 @@ public class UserDaoImpl implements UserDao {
     public UserDaoImpl() {
     }
 
-    @Transactional
     @Override
     public List<User> getUsers() {
         return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
-    @Transactional
     @Override
     public User getUserById(Long id) {
         return entityManager.find(User.class, id);
     }
 
-    @Transactional
+
     @Override
     public void create(User user) {
         entityManager.persist(user);
     }
-
-    @Transactional
 
     @Override
     public void update(long id, User user) {
@@ -48,7 +43,6 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    @Transactional
     @Override
     public void deleteUser(Long id) {
         entityManager.remove(entityManager.find(User.class, id));
